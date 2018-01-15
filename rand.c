@@ -23,7 +23,7 @@
 
 #include "rand.h"
 
-#ifndef RAND_PLATFORM_INDEPENDENT
+#if RAND_PLATFORM_INDEPENDENT
 
 #include <stdio.h>
 #ifdef _WIN32
@@ -66,6 +66,7 @@ uint32_t random_uniform(uint32_t n)
 	return x / (max / n);
 }
 
+#if 0
 void random_buffer(uint8_t *buf, size_t len)
 {
 	uint32_t r = 0;
@@ -76,19 +77,7 @@ void random_buffer(uint8_t *buf, size_t len)
 		buf[i] = (r >> ((i % 4) * 8)) & 0xFF;
 	}
 }
-
-#endif /* RAND_PLATFORM_INDEPENDANT */
-
-//
-// Following code should be platform independant
-//
-
-uint32_t random_uniform(uint32_t n)
-{
-	uint32_t x, max = 0xFFFFFFFF - (0xFFFFFFFF % n);
-	while ((x = random32()) >= max);
-	return x / (max / n);
-}
+#endif
 
 void random_permute(char *str, size_t len)
 {
