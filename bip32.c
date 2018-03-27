@@ -391,6 +391,12 @@ int hdnode_private_ckd_cached(HDNode *inout, const uint32_t *i, size_t i_count, 
 
 	return 1;
 }
+#else
+int hdnode_private_ckd_cached(HDNode *inout, const uint32_t *i, size_t i_count, uint32_t *fingerprint)
+{
+    // not implemented
+    return 1;
+}
 #endif
 
 void hdnode_get_address_raw(HDNode *node, uint32_t version, uint8_t *addr_raw)
