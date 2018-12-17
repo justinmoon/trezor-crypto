@@ -32,26 +32,32 @@
 #include <assert.h>
 #endif
 
+// Loboris' m5stack fix ...
+#include "esp_system.h"
 uint32_t random32(void)
 {
-#ifdef _WIN32
-	static int initialized = 0;
-	if (!initialized) {
-		srand((unsigned)time(NULL));
-		initialized = 1;
-	}
-	return ((rand() % 0xFF) | ((rand() % 0xFF) << 8) | ((rand() % 0xFF) << 16) | ((rand() % 0xFF) << 24));
-#else
-	static FILE *frand = NULL;
-	if (!frand) {
-		frand = fopen("/dev/urandom", "r");
-	}
-	uint32_t r;
-	size_t len_read = fread(&r, 1, sizeof(r), frand);
-	assert(len_read == sizeof(r));
-	return r;
-#endif
+    return esp_random();
 }
+/*uint32_t random32(void)*/
+/*{*/
+/*#ifdef _WIN32*/
+	/*static int initialized = 0;*/
+	/*if (!initialized) {*/
+		/*srand((unsigned)time(NULL));*/
+		/*initialized = 1;*/
+	/*}*/
+	/*return ((rand() % 0xFF) | ((rand() % 0xFF) << 8) | ((rand() % 0xFF) << 16) | ((rand() % 0xFF) << 24));*/
+/*#else*/
+	/*static FILE *frand = NULL;*/
+	/*if (!frand) {*/
+		/*frand = fopen("/dev/urandom", "r");*/
+	/*}*/
+	/*uint32_t r;*/
+	/*size_t len_read = fread(&r, 1, sizeof(r), frand);*/
+	/*assert(len_read == sizeof(r));*/
+	/*return r;*/
+/*#endif*/
+/*}*/
 
 #endif /* RAND_PLATFORM_INDEPENDENT */
 
