@@ -25,7 +25,7 @@ Issue Date: 20/12/2007
 #  include "aes_ni.h"
 #else
 /* map names here to provide the external API ('name' -> 'aes_name') */
-#  define aes_xi(x) aes_ ## x
+#  define aes_xi(x) _aes_ ## x
 #endif
 
 #if defined(__cplusplus)
